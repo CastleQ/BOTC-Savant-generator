@@ -1,0 +1,158 @@
+/* 1. 전체 설정 */
+body {
+    background-color: #282c34; /* 남색 배경 */
+    color: #ffffff;            /* 기본 글자색 흰색 */
+    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;             /* 내용을 중앙에 정렬하기 위한 설정 */
+    justify-content: center;
+    min-height: 100vh;         /* 화면 전체 높이 사용 */
+}
+
+.container {
+    max-width: 600px;          /* 너무 넓게 퍼지지 않도록 제한 */
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;                 /* 요소들 사이의 간격 */
+}
+
+/* 2. 서번트 아이콘 & 애니메이션 */
+.icon-container {
+    margin-top: 20px;
+}
+
+#savant-icon {
+    width: 220px;              /* 사용자 지정 크기 유지 */
+    height: 220px;
+    border-radius: 50%;        /* 둥글게 */
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); /* 은은한 금색 빛 */
+    
+    /* 빙글빙글 도는 애니메이션 적용 */
+    animation: rotate-slow 20s linear infinite;
+    cursor: pointer; /* 클릭 가능하다는 표시 */
+}
+
+@keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* 3. 명제 표시 영역 (고정 높이 적용됨) */
+.proposition-area {
+    height: 160px;             
+    width: 100%;               
+    display: flex;
+    align-items: center;       
+    justify-content: center;   
+    padding: 0 20px;           
+    box-sizing: border-box;    
+}
+
+#proposition-text {
+    font-size: 1.8rem;         
+    font-style: italic;        
+    font-weight: bold;         /* [수정됨] 텍스트를 굵게 변경 */
+    word-break: keep-all;      
+    line-height: 1.5;          
+    color: #eeece1;            
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    margin: 0;                 
+}
+
+/* 4. 버튼 및 컨트롤 */
+.control-area {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 10px; 
+}
+
+/* [수정됨] 이미지 배경 버튼 (어둡게 처리) */
+#generate-btn {
+    /* 1. 배경 이미지 설정 (검은색 반투명 필름을 씌워서 어둡게 만듦) */
+    /* rgba(0, 0, 0, 0.3)은 검은색 투명도 30%를 의미합니다. 더 어둡게 하려면 0.5 등으로 올리세요 */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('button-bg.png'); 
+    
+    /* 2. 이미지가 로딩 안 될 때를 대비한 기본 색상 */
+    background-color: #17006b; 
+
+    /* 3. 이미지 위치 및 크기 조절 */
+    background-size: cover;    /* 이미지를 버튼 꽉 차게 늘리기 */
+    background-position: center; /* 이미지의 가운데 부분을 보여주기 */
+    background-repeat: no-repeat; /* 바둑판처럼 반복하지 않기 */
+
+    /* 4. 텍스트 설정 */
+    color: #ffffff;
+    border: none;
+    padding: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.1s;
+    
+    /* 배경이 화려해도 글씨가 잘 보이게 그림자 추가 */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+#generate-btn:active {
+    transform: scale(0.95);     
+}
+
+#language-select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* 5. 하단 링크 및 푸터 */
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.link-btn {
+    text-decoration: none;
+    color: #ccc;
+    border: 1px solid #555;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.link-btn:hover {
+    background-color: #444;
+    color: #fff;
+    border-color: #fff;
+}
+
+footer {
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* 모바일 화면 대응 (반응형) */
+@media (max-width: 400px) {
+    #proposition-text {
+        font-size: 1.2rem;
+    }
+    .proposition-area {
+        height: 140px; 
+    }
+}
