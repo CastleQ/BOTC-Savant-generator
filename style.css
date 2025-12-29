@@ -1,39 +1,51 @@
 /* 1. 전체 설정 */
 body {
-    background-color: #282c34; /* 남색 배경 */
-    color: #ffffff;            /* 기본 글자색 흰색 */
+    background-color: #282c34;
+    color: #ffffff;
     font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
     margin: 0;
     padding: 20px;
-    display: flex;             /* 내용을 중앙에 정렬하기 위한 설정 */
+    display: flex;
     justify-content: center;
-    min-height: 100vh;         /* 화면 전체 높이 사용 */
+    min-height: 100vh;
 }
 
 .container {
-    max-width: 600px;          /* 너무 넓게 퍼지지 않도록 제한 */
+    max-width: 600px;
     width: 100%;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;                 /* 요소들 사이의 간격 */
+    gap: 20px;
 }
 
 /* 2. 서번트 아이콘 & 애니메이션 */
 .icon-container {
     margin-top: 20px;
+    position: relative; /* 이스터에그 메시지 위치 기준점 */
 }
 
 #savant-icon {
-    width: 220px;              /* 사용자 지정 크기 유지 */
-    height: 220px;
-    border-radius: 50%;        /* 둥글게 */
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); /* 은은한 금색 빛 */
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
     
-    /* 빙글빙글 도는 애니메이션 적용 */
+    /* 기본: 천천히 돌기 (20초) */
     animation: rotate-slow 20s linear infinite;
-    cursor: pointer; /* 클릭 가능하다는 표시 */
+    cursor: pointer;
+    transition: transform 0.3s; /* 클릭 효과용 */
+
+    /* [수정됨] 모바일 터치 시 검은 박스/파란 박스 제거 */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+    outline: none;
+}
+
+#savant-icon:active {
+    transform: scale(0.95);
 }
 
 @keyframes rotate-slow {
@@ -41,26 +53,61 @@ body {
     to { transform: rotate(360deg); }
 }
 
-/* 3. 명제 표시 영역 (고정 높이 적용됨) */
+/* [이스터에그] 엄청 빠르게 돌기 (0.2초) */
+.super-fast {
+    animation: rotate-slow 0.2s linear infinite !important;
+    filter: hue-rotate(90deg); /* 색깔도 살짝 변하면 더 재밌음 */
+}
+
+/* [이스터에그] 메시지 스타일 (수정됨) */
+#easter-egg-msg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 정확히 정중앙 배치 */
+    
+    background-color: rgba(0, 0, 0, 0); /* 배경 투명 */
+    color: #ff4444; /* 빨간색 텍스트 */
+    
+    /* 텍스트 스타일 */
+    font-weight: bold;
+    font-size: 1.5rem;
+    font-style: italic;
+    
+    /* [수정됨] 줄바꿈 방지 및 쉐도우 추가 */
+    white-space: nowrap;       /* 무조건 한 줄로 표시 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 0, 0, 0.5); /* 검은 그림자 + 붉은 빛 */
+    
+    pointer-events: none; /* 클릭 방해 안 함 */
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: 10;
+}
+
+#easter-egg-msg.show {
+    opacity: 1;
+}
+
+/* 3. 명제 표시 영역 */
 .proposition-area {
-    height: 160px;             
-    width: 100%;               
+    height: 160px;
+    width: 100%;
     display: flex;
-    align-items: center;       
-    justify-content: center;   
-    padding: 0 20px;           
-    box-sizing: border-box;    
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 #proposition-text {
-    font-size: 1.8rem;         
-    font-style: italic;        
-    font-weight: bold;         /* [수정됨] 텍스트를 굵게 변경 */
-    word-break: keep-all;      
-    line-height: 1.5;          
-    color: #eeece1;            
+    font-size: 1.8rem;
+    font-style: italic;
+    font-weight: bold;
+    word-break: keep-all;
+    line-height: 1.5;
+    color: #eeece1;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    margin: 0;                 
+    margin: 0;
 }
 
 /* 4. 버튼 및 컨트롤 */
@@ -70,24 +117,17 @@ body {
     gap: 15px;
     width: 100%;
     max-width: 300px;
-    margin-top: 10px; 
+    margin-top: 10px;
+    align-items: center; /* 드롭다운 중앙 정렬 */
 }
 
-/* [수정됨] 이미지 배경 버튼 (어둡게 처리) */
 #generate-btn {
-    /* 1. 배경 이미지 설정 (검은색 반투명 필름을 씌워서 어둡게 만듦) */
-    /* rgba(0, 0, 0, 0.3)은 검은색 투명도 30%를 의미합니다. 더 어둡게 하려면 0.5 등으로 올리세요 */
+    width: 100%; /* 버튼은 가득 차게 */
     background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('button-bg.png'); 
-    
-    /* 2. 이미지가 로딩 안 될 때를 대비한 기본 색상 */
     background-color: #17006b; 
-
-    /* 3. 이미지 위치 및 크기 조절 */
-    background-size: cover;    /* 이미지를 버튼 꽉 차게 늘리기 */
-    background-position: center; /* 이미지의 가운데 부분을 보여주기 */
-    background-repeat: no-repeat; /* 바둑판처럼 반복하지 않기 */
-
-    /* 4. 텍스트 설정 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: #ffffff;
     border: none;
     padding: 15px;
@@ -96,48 +136,86 @@ body {
     border-radius: 8px;
     cursor: pointer;
     transition: transform 0.1s;
-    
-    /* 배경이 화려해도 글씨가 잘 보이게 그림자 추가 */
     text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+    
+    /* [추가] 모바일 터치 하이라이트 제거 */
+    -webkit-tap-highlight-color: transparent;
 }
 
 #generate-btn:active {
-    transform: scale(0.95);     
+    transform: scale(0.95);
+}
+
+/* [수정됨] 드롭다운 메뉴 작게 만들기 */
+.select-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 #language-select {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    font-size: 1rem;
+    padding: 5px 10px;     /* 패딩 줄임 */
+    border-radius: 4px;
+    border: 1px solid #555;
+    background-color: #3b4048; /* 배경색 어둡게 */
+    color: #ccc;
+    font-size: 0.8rem;     /* 폰트 크기 줄임 */
     text-align: center;
     cursor: pointer;
+    width: 30%;            /* 너비 30% 수준 */
+    opacity: 0.8;          /* 살짝 흐리게 */
+    transition: opacity 0.2s;
+}
+
+#language-select:hover {
+    opacity: 1;
 }
 
 /* 5. 하단 링크 및 푸터 */
 .footer-links {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 10px; /* 버튼 사이 간격 */
     margin-top: 30px;
+    width: 100%;
 }
 
+/* [수정됨] 하단 버튼 3개 크기 통일 */
 .link-btn {
     text-decoration: none;
     color: #ccc;
     border: 1px solid #555;
-    padding: 8px 12px;
-    border-radius: 20px;
-    font-size: 0.9rem;
+    
+    /* 고정 크기 (정사각형) */
+    width: 90px;
+    height: 90px;
+    
+    /* 내용 중앙 정렬 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    border-radius: 15px; /* 둥근 사각형 */
+    font-size: 0.8rem;
+    line-height: 1.3;
     transition: all 0.3s;
+    background-color: rgba(255, 255, 255, 0.05); /* 아주 연한 배경 */
+    
+    /* [추가] 모바일 터치 하이라이트 제거 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 첫 번째 버튼(이모지)만 글자 크게 */
+.emoji-btn {
+    font-size: 2rem; 
 }
 
 .link-btn:hover {
     background-color: #444;
     color: #fff;
     border-color: #fff;
+    transform: translateY(-3px); /* 마우스 올리면 살짝 떠오름 */
 }
 
 footer {
@@ -147,7 +225,17 @@ footer {
     line-height: 1.6;
 }
 
-/* 모바일 화면 대응 (반응형) */
+/* [수정됨] 푸터 링크 스타일 */
+.footer-link-text {
+    color: #888;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.footer-link-text:hover {
+    color: #fff;
+}
+
 @media (max-width: 400px) {
     #proposition-text {
         font-size: 1.2rem;

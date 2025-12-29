@@ -11,6 +11,7 @@
     <div class="container">
         <div class="icon-container">
             <img src="https://botc.app/assets/savant_g-n6x1YgAZ.webp" alt="서번트 아이콘" id="savant-icon">
+            <div id="easter-egg-msg" class="hidden">너무 빨라...</div>
         </div>
 
         <div class="proposition-area">
@@ -20,21 +21,35 @@
         <div class="control-area">
             <button id="generate-btn">명제 생성</button>
             
-            <select id="language-select">
-                <option value="kr">한글</option>
-                <option value="en">English</option>
-            </select>
+            <div class="select-wrapper">
+                <select id="language-select">
+                    <option value="kr">한글</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
         </div>
 
         <div class="footer-links">
-            <a href="https://open.kakao.com/o/smyEIE4" target="_blank" class="link-btn" title="명제 추가 제안하기">💬</a>
-            <a href="https://wiki.bloodontheclocktower.com/Main_Page" target="_blank" class="link-btn">BOTC 공식 Wiki</a>
-            <a href="https://open.kakao.com/o/gOQQgNog" target="_blank" class="link-btn">한국 유일 온라인 시계피 커뮤니티</a>
+            <a href="https://open.kakao.com/o/smyEIE4" target="_blank" class="link-btn emoji-btn" title="명제 추가 제안하기">
+                💬
+            </a>
+            <a href="https://wiki.bloodontheclocktower.com/Main_Page" target="_blank" class="link-btn">
+                BOTC<br>공식 Wiki
+            </a>
+            <a href="https://open.kakao.com/o/gOQQgNog" target="_blank" class="link-btn">
+                한국 유일<br>온라인 시계피<br>커뮤니티
+            </a>
         </div>
 
         <footer>
-            <p>마지막 업데이트: 2025.12.29</p>
-            <p>이 생성기는 savant.thegrim.gg 및 wonhyo-e님의 지난 프로젝트를 참고하여 만들어졌습니다.</p>
+            <p>마지막 업데이트: 2024.12.29</p>
+            <p>
+                이 생성기는 
+                <a href="https://savant.thegrim.gg/" target="_blank" class="footer-link-text">savant.thegrim.gg</a> 
+                및 
+                <a href="https://botc-kr.github.io/#savant-generator" target="_blank" class="footer-link-text">wonhyo-e</a>
+                님의 지난 프로젝트를 참고하여 만들어졌습니다.
+            </p>
             <p>made by Castle_Q</p>
         </footer>
     </div>
