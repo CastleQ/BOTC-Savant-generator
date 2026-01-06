@@ -80,7 +80,7 @@ body {
     
     pointer-events: none; /* 클릭 방해 안 함 */
     opacity: 0;
-    transition: opacity 0.5s;
+    transition: opacity 1.5s;
     z-index: 10;
 }
 
@@ -208,7 +208,7 @@ body {
 
 /* 첫 번째 버튼(이모지)만 글자 크게 */
 .emoji-btn {
-    font-size: 2rem; 
+    font-size: 0.8rem; 
 }
 
 .link-btn:hover {
