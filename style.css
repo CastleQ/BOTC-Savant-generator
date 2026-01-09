@@ -172,10 +172,12 @@ body {
 }
 
 /* 5. 하단 링크 및 푸터 */
+/* [수정됨] 2x2 그리드 배치 적용 */
 .footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* 버튼 사이 간격 */
+    display: grid;               /* Flex 대신 Grid 사용 */
+    grid-template-columns: repeat(2, 90px); /* 90px 너비의 기둥 2개 생성 */
+    justify-content: center;     /* 전체 그리드를 중앙 정렬 */
+    gap: 15px;                   /* 버튼 사이 간격 (조금 넉넉하게) */
     margin-top: 30px;
     width: 100%;
 }
@@ -206,7 +208,6 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
-/* 첫 번째 버튼(이모지)만 글자 크게 */
 .emoji-btn {
     font-size: 0.8rem; 
 }
